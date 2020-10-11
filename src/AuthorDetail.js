@@ -17,6 +17,8 @@ const AuthorDetail = () => {
 
   const authorName = `${author.first_name} ${author.last_name}`;
 
+
+  useEffect(() => {
   const getAuthor = async () => {
     setLoading(true);
     try {
@@ -28,8 +30,6 @@ const AuthorDetail = () => {
       console.error(err);
     }
   };
-
-  useEffect(() => {
     getAuthor();
   }, [authorID]);
 

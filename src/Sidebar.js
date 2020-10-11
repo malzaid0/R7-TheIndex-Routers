@@ -13,6 +13,11 @@ const Sidebar = () => {
           <NavLink to="/authors">AUTHORS</NavLink>
         </h4>
       </section>
+        <section>
+            <h4 className="menu-item">
+                <NavLink to="/books">BOOKS</NavLink>
+            </h4>
+        </section>
     </div>
   );
 };

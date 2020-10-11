@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import Loading from "./Loading";
 import AuthorList from "./AuthorList";
 import AuthorDetail from "./AuthorDetail";
+import BookList from "./BookList";
 
 const instance = axios.create({
   baseURL: "https://the-index-api.herokuapp.com",
@@ -15,16 +16,25 @@ const instance = axios.create({
 const App = () => {
   const [authors, setAuthors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [books, setBooks] = useState([]);
 
-  const fetchAllAuthors = async () => {
-    const res = await instance.get("/api/authors/");
-    setAuthors(res.data);
-    setLoading(false);
-  };
 
   useEffect(() => {
+      const fetchAllAuthors = async () => {
+        const res = await instance.get("/api/authors/");
+        setAuthors(res.data);
+        setLoading(false);
+      };
+
+      const fetchBooks = async () => {
+        setLoading(true)
+        const res = await instance.get("/api/books/");
+        setBooks(res.data);
+        setLoading(false);
+      };
     try {
       fetchAllAuthors();
+      fetchBooks();
     } catch (err) {
       console.error(err);
     }
@@ -41,6 +51,12 @@ const App = () => {
         </Route>
         <Route path="/authors/">
           <AuthorList authors={authors} />
+        </Route>
+        <Route path="/books/:bookColor/">
+          <BookList books={books} />
+        </Route>
+        <Route path="/books/">
+          <BookList books={books} />
         </Route>
       </Switch>
     );
